@@ -158,8 +158,17 @@ class Player:
 class Computer(Player):
     def coordinate_request(self):
         p = Point(randint(0, 5), randint(0, 5))
-        print(f'Противник стреляет по {p.x + 1}, {p.y + 1}')
         return p
+
+    def make_shot(self):
+        while True:
+            try:
+                target = self.coordinate_request()
+                repeat = self.enemy_board.shot(target)
+                print(f'Противник выстрелил по {target.x + 1}, {target.y + 1}')
+                return repeat
+            except BoardException:
+                pass
 
 
 class User(Player):
